@@ -86,6 +86,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    DriveTrain dTrain = new DriveTrain();
+    ControllerManager cManager = new ControllerManager();
+    BallCollector collector = new BallCollector();
+    boolean vision = false; 
+    if(vision){
+
+    }else{
+      //dTrain.tankDrive(cManager.tankDrive());
+    }
+    //collector.RunCollector(cManager.CollectorControlls());
   }
 
   /**
