@@ -7,11 +7,22 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+
 /**
  * Add your docs here.
  */
 public class ControllerManager {
-    public int driveControlls(){
-        return 0;
+    
+    private Joystick gamepad = new Joystick(0);
+	private Joystick joystick = new Joystick(1);
+    
+    public double[] driveControlls(){
+        double[] input = new double[2];
+        
+        input[0] = gamepad.getRawAxis(1);
+        input[0] = gamepad.getRawAxis(3);
+
+        return input;
     }
 }

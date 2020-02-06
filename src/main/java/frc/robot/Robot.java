@@ -81,19 +81,22 @@ public class Robot extends TimedRobot {
     }
   }
 
+
+
+  DriveTrain dTrain = new DriveTrain();
+  ControllerManager cManager = new ControllerManager();
+  BallCollector collector = new BallCollector();
+  boolean vision = false; 
   /**
    * This function is called periodically during operator control.
    */
   @Override
   public void teleopPeriodic() {
-    DriveTrain dTrain = new DriveTrain();
-    ControllerManager cManager = new ControllerManager();
-    BallCollector collector = new BallCollector();
-    boolean vision = false; 
+
     if(vision){
 
     }else{
-      //dTrain.tankDrive(cManager.tankDrive());
+      dTrain.getM_drive().tankDrive(cManager.driveControlls()[0],cManager.driveControlls()[1] );
     }
     //collector.RunCollector(cManager.CollectorControlls());
   }
