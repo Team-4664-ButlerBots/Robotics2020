@@ -16,13 +16,31 @@ public class ControllerManager {
     
     private Joystick gamepad = new Joystick(0);
 	private Joystick joystick = new Joystick(1);
-    
+
     public double[] driveControlls(){
         double[] input = new double[2];
+
+        int speeddiv = 1;
+
+        if (getBruh()) {
+            speeddiv = 2;
+        } else {
+            speeddiv = 1;
+        }
         
-        input[0] = gamepad.getRawAxis(1);
-        input[0] = gamepad.getRawAxis(3);
+        input[1] = gamepad.getRawAxis(1)/speeddiv;
+        input[0] = gamepad.getRawAxis(3)/speeddiv;
 
         return input;
+    }
+
+    public boolean getBruh(){ //Change speed if left bumper (button 5) pressed
+        if (gamepad.getRawButton(5)) {
+            return true;
+        }
+        if (gamepad.getRawButtonReleased(5)) {
+            return false;
+        }
+        return false;
     }
 }
