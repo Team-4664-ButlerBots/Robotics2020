@@ -33,8 +33,6 @@ public class ControllerManager {
     public double[] getDriveInput(){
         double[] input = new double[2];
         
-        
-        
         //Set inputs
         input[0] = gamepad.getRawAxis(3);
         input[1] = gamepad.getRawAxis(1);
@@ -44,7 +42,7 @@ public class ControllerManager {
 
     public double collectorInput(){
         if( gamepad.getRawButton(2)){
-            return 1;
+            return Constants.collectorSpeed;
         }else{
             return 0;
         }
