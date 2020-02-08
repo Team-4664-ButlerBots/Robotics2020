@@ -17,8 +17,23 @@ public class DriveTrain {
     private Spark m_left = new Spark(0);
     private Spark m_right = new Spark(1);
     private DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
+    private ControllerManager cManager;
+
+    public DriveTrain(ControllerManager cManager){
+        this.cManager = cManager;
+    }
+
+    public void drive(){
+        double[] input = cManager.getDriveInput();
+        getM_drive().tankDrive(input[0], input[1]);
+    }
+
+
 
     public DifferentialDrive getM_drive() {
         return m_drive;
     }
+
+     //Speed to divide both sides by
+     int speeddiv = 1;
 }

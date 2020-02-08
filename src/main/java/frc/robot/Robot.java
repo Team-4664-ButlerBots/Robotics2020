@@ -83,8 +83,9 @@ public class Robot extends TimedRobot {
 
 
 
-  DriveTrain dTrain = new DriveTrain();
+  
   ControllerManager cManager = new ControllerManager();
+  DriveTrain dTrain = new DriveTrain(cManager);
   BallCollector collector = new BallCollector();
   boolean vision = false; 
   /**
@@ -96,7 +97,7 @@ public class Robot extends TimedRobot {
     if(vision){
 
     }else{
-      dTrain.getM_drive().tankDrive(cManager.driveControls()[0],cManager.driveControls()[1] );
+      dTrain.drive();
     }
     //collector.RunCollector(cManager.CollectorControlls());
   }

@@ -13,25 +13,30 @@ import edu.wpi.first.wpilibj.Joystick;
  * Add your docs here.
  */
 public class ControllerManager {
+
+    public Joystick gamepad = new Joystick(0);
+    //public Joystick joystick = new Joystick(1);
+
+    boolean speedToggled = false;
     
-    private Joystick gamepad = new Joystick(0);
-    //private Joystick joystick = new Joystick(1);
-    int speeddiv = 1; //Speed to divide both sides by
-
-    public double[] driveControls(){
-        double[] input = new double[2];
-
+    public boolean speedToggle(){
         if (gamepad.getRawButtonPressed(5)) { //Toggle speed between fast and slow if left bumper (5) is pressed
-            if (speeddiv == 1) {
-                speeddiv = 2; //Set slow
-            } else {
-                speeddiv = 1; //Set fast
-            }
+            if (speedToggled)
+                speedToggled = false;
+            else
+                speedToggled = true;
         }
+        return speedToggled;
+    }
+
+    public double[] getDriveInput(){
+        double[] input = new double[2];
+        
+        
         
         //Set inputs
-        input[0] = gamepad.getRawAxis(3) / speeddiv;
-        input[1] = gamepad.getRawAxis(1) / speeddiv;
+        input[0] = gamepad.getRawAxis(3);
+        input[1] = gamepad.getRawAxis(1);
         
         return input;
     }

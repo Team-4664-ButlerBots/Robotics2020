@@ -7,8 +7,13 @@
 
 package frc.robot;
 
-/**
- * Add your docs here.
- */
+import edu.wpi.first.wpilibj.Spark;
+
 public class BallCollector {
+
+    private Spark collector = new Spark(0);
+
+    
+
+
 }
