@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class ControllerManager {
     
     private Joystick gamepad = new Joystick(0);
-    private Joystick joystick = new Joystick(1);
+    //private Joystick joystick = new Joystick(1);
     int speeddiv = 1; //Speed to divide both sides by
 
     public double[] driveControls(){
@@ -30,9 +30,9 @@ public class ControllerManager {
         }
         
         //Set inputs
-        input[1] = gamepad.getRawAxis(1) / speeddiv;
         input[0] = gamepad.getRawAxis(3) / speeddiv;
-
+        input[1] = gamepad.getRawAxis(1) / speeddiv;
+        
         return input;
     }
 }

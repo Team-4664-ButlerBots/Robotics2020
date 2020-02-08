@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * Add your docs here.
  */
 public class DriveTrain {
-    private Spark m_left = new Spark(Constants.driveportL);
-    private Spark m_right = new Spark(Constants.driveportR);
+    private Spark m_left = new Spark(0);
+    private Spark m_right = new Spark(1);
     private DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
 
     public DifferentialDrive getM_drive() {

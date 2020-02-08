@@ -11,8 +11,5 @@ package frc.robot;
  * Add your docs here.
  */
 public class Constants {
-
-    public final static int driveportL=0;
-    public final static int driveportR=1;
-
+    
 }
