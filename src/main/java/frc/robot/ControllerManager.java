@@ -15,17 +15,19 @@ import edu.wpi.first.wpilibj.Joystick;
 public class ControllerManager {
     
     private Joystick gamepad = new Joystick(0);
-	private Joystick joystick = new Joystick(1);
+    private Joystick joystick = new Joystick(1);
+    int speeddiv = 1;
 
-    public double[] driveControlls(){
+    public double[] driveControls(){
         double[] input = new double[2];
 
-        int speeddiv = 1;
 
-        if (getBruh()) {
-            speeddiv = 2;
-        } else {
-            speeddiv = 1;
+        if (gamepad.getRawButtonPressed(5)) {
+            if (speeddiv == 1) {
+                speeddiv = 2;
+            } else {
+                speeddiv = 1;
+            }
         }
         
         input[1] = gamepad.getRawAxis(1)/speeddiv;
@@ -35,11 +37,8 @@ public class ControllerManager {
     }
 
     public boolean getBruh(){ //Change speed if left bumper (button 5) pressed
-        if (gamepad.getRawButton(5)) {
+        if (gamepad.getRawButtonPressed(5)) {
             return true;
-        }
-        if (gamepad.getRawButtonReleased(5)) {
-            return false;
         }
         return false;
     }

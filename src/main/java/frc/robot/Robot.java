@@ -96,7 +96,7 @@ public class Robot extends TimedRobot {
     if(vision){
 
     }else{
-      dTrain.getM_drive().tankDrive(cManager.driveControlls()[0],cManager.driveControlls()[1] );
+      dTrain.getM_drive().tankDrive(cManager.driveControls()[0],cManager.driveControls()[1] );
     }
     //collector.RunCollector(cManager.CollectorControlls());
   }
