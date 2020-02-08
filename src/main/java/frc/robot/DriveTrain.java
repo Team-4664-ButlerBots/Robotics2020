@@ -25,15 +25,9 @@ public class DriveTrain {
 
     public void drive(){
         double[] input = cManager.getDriveInput();
-        getM_drive().tankDrive(input[0], input[1]);
+        if(cManager.speedToggle())
+            m_drive.tankDrive(input[0]/2, input[1]/2);
+        else
+            m_drive.tankDrive(input[0], input[1]);
     }
-
-
-
-    public DifferentialDrive getM_drive() {
-        return m_drive;
-    }
-
-     //Speed to divide both sides by
-     int speeddiv = 1;
 }

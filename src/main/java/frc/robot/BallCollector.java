@@ -11,9 +11,11 @@ import edu.wpi.first.wpilibj.Spark;
 
 public class BallCollector {
 
-    private Spark collector = new Spark(0);
+    private ControllerManager cManager;
 
-    
+    private Spark collector = new Spark(3);
+
+
 
 
 }

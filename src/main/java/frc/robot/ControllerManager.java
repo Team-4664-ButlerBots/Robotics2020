@@ -14,10 +14,10 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class ControllerManager {
 
-    public Joystick gamepad = new Joystick(0);
+    private Joystick gamepad = new Joystick(0);
     //public Joystick joystick = new Joystick(1);
 
-    boolean speedToggled = false;
+    private boolean speedToggled = false;
     
     public boolean speedToggle(){
         if (gamepad.getRawButtonPressed(5)) { //Toggle speed between fast and slow if left bumper (5) is pressed
