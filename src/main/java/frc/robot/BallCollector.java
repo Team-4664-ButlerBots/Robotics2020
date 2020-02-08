@@ -13,8 +13,18 @@ public class BallCollector {
 
     private ControllerManager cManager;
 
-    private Spark collector = new Spark(3);
+    public BallCollector(ControllerManager cManager){
+        this.cManager = cManager;
+    }
 
+    private Spark collector = new Spark(2);
+
+    //meathod to run collector motor from controller
+    public void opRunCollector(){
+        collector.set(cManager.collectorInput());
+    }
+
+    
 
 
 

@@ -86,7 +86,7 @@ public class Robot extends TimedRobot {
   
   ControllerManager cManager = new ControllerManager();
   DriveTrain dTrain = new DriveTrain(cManager);
-  BallCollector collector = new BallCollector();
+  BallCollector collector = new BallCollector(cManager);
   boolean vision = false; 
   /**
    * This function is called periodically during operator control.
@@ -97,9 +97,9 @@ public class Robot extends TimedRobot {
     if(vision){
 
     }else{
-      dTrain.drive();
+      dTrain.operatorDrive();
     }
-    //collector.RunCollector(cManager.CollectorControlls());
+    collector.opRunCollector();
   }
 
   /**

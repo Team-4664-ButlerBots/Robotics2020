@@ -25,6 +25,7 @@ public class ControllerManager {
                 speedToggled = false;
             else
                 speedToggled = true;
+
         }
         return speedToggled;
     }
@@ -39,5 +40,13 @@ public class ControllerManager {
         input[1] = gamepad.getRawAxis(1);
         
         return input;
+    }
+
+    public double collectorInput(){
+        if( gamepad.getRawButton(2)){
+            return 1;
+        }else{
+            return 0;
+        }
     }
 }

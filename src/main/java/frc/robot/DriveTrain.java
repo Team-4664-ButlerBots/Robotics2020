@@ -23,11 +23,12 @@ public class DriveTrain {
         this.cManager = cManager;
     }
 
-    public void drive(){
+    public void operatorDrive(){
         double[] input = cManager.getDriveInput();
         if(cManager.speedToggle())
             m_drive.tankDrive(input[0]/2, input[1]/2);
         else
             m_drive.tankDrive(input[0], input[1]);
     }
+
 }
