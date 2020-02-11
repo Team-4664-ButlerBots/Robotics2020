@@ -16,9 +16,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Ultra {
     private Ultrasonic frontUltra = new Ultrasonic(0, 1);
 
-    public void testUltra(){
-        System.out.println(frontUltra.getRangeMM());
+    public Ultra(){
+        frontUltra.setAutomaticMode(true);
     }
-    
-    
+
+    public void testUltra(){
+        System.out.println(frontUltra.getRangeMM() / 1000);
+    }
+
 }
