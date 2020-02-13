@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Ultrasonic;
 
 /**
@@ -14,13 +17,19 @@ import edu.wpi.first.wpilibj.Ultrasonic;
  */
 public class Ultra {
     private Ultrasonic frontUltra = new Ultrasonic(0, 1);
+    private NetworkTableInstance ntist = NetworkTableInstance.getDefault();
+    private NetworkTable ultraTable;
+    private NetworkTableEntry FrontDistance;
 
     public Ultra(){
         frontUltra.setAutomaticMode(true);
+        ultraTable = ntist.getTable("UltraSonicSensors");
+        FrontDistance = ultraTable.getEntry("FrontUltraDistance");
     }
 
-    public void testUltra(){
-        System.out.println(frontUltra.getRangeMM() / 1000);
+    //publishes the ultrasonic values to the network tables. 
+    public void publishUltra(){
+        FrontDistance.setDouble(GetUltraMeters());
     }
 
     public double GetUltraMeters(){
