@@ -8,7 +8,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
@@ -22,6 +21,10 @@ public class Ultra {
 
     public void testUltra(){
         System.out.println(frontUltra.getRangeMM() / 1000);
+    }
+
+    public double GetUltraMeters(){
+        return frontUltra.getRangeMM() / 1000;
     }
 
 }
