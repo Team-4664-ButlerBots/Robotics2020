@@ -30,6 +30,7 @@ public class Ultra {
     //publishes the ultrasonic values to the network tables. 
     public void publishUltra(){
         FrontDistance.setDouble(GetUltraMeters());
+        //System.out.println(GetUltraMeters());
     }
 
     public double GetUltraMeters(){
