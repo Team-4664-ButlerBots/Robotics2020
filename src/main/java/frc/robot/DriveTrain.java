@@ -31,4 +31,8 @@ public class DriveTrain {
             m_drive.tankDrive(input[0], input[1]);
     }
 
+    public DifferentialDrive getDiffDrive(){
+        return m_drive;
+    }
+
 }
