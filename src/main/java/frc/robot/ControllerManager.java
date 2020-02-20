@@ -47,4 +47,8 @@ public class ControllerManager {
             return 0;
         }
     }
+
+    public boolean usingVision(){
+        return gamepad.getRawButton(8);
+    }
 }

@@ -90,15 +90,15 @@ public class Robot extends TimedRobot {
   ControllerManager cManager = new ControllerManager();
   DriveTrain dTrain = new DriveTrain(cManager);
   BallCollector collector = new BallCollector(cManager);
-  boolean vision = false; 
+  Vision visionSystem = new Vision(dTrain); 
   /**
    * This function is called periodically during operator control.
    */
   @Override
   public void teleopPeriodic() {
 
-    if(vision){
-
+    if(cManager.usingVision()){
+      visionSystem.trackTarget();
     }else{
       dTrain.operatorDrive();
     }
