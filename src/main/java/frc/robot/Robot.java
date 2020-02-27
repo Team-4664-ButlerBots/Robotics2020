@@ -98,7 +98,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     if(cManager.usingVision()){
-      visionSystem.trackTarget();
+      visionSystem.FollowTarget();
     }else{
       dTrain.operatorDrive();
     }
