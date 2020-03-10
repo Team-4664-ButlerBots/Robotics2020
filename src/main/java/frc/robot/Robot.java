@@ -10,6 +10,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.LED.ColorLookUpTable;
+import frc.robot.LED.LEDstrip;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,6 +27,10 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
+
+  double LEDoffset = 0; 
+  ColorLookUpTable test = new ColorLookUpTable(3);
+  LEDstrip frontLED = new LEDstrip(9, 8);
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -33,6 +40,9 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
+    test.setGrid(Color.kBlack, Color.kBlueViolet);
+    //frontLED.setColor(Color.kBlueViolet);
   }
 
 
@@ -48,6 +58,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     ultra.publishUltra();
+    LEDoffset += 0.0002;
+    frontLED.mapLookupTable(test, LEDoffset);
   }
 
   /**
