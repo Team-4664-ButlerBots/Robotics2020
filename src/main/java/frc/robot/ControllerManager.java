@@ -15,13 +15,13 @@ import edu.wpi.first.wpilibj.Joystick;
 public class ControllerManager {
     
     private Joystick gamepad = new Joystick(0);
-	private Joystick joystick = new Joystick(1);
+	//private Joystick joystick = new Joystick(1);
     
     public double[] driveControlls(){
         double[] input = new double[2];
         
         input[0] = gamepad.getRawAxis(1);
-        input[0] = gamepad.getRawAxis(3);
+        input[1] = gamepad.getRawAxis(3);
 
         return input;
     }
