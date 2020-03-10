@@ -58,6 +58,8 @@ public class Vision {
             // set robot to turn to face target from published xPosition from raspberry pi;
             pid.setPID(kp.getDouble(0), ki.getDouble(0), kd.getDouble(0));
             dTrain.getDiffDrive().arcadeDrive(0, pid.calculate(0, (xCenter.getDouble(0) - 0.5) * 2));
+        }else{
+            dTrain.getDiffDrive().tankDrive(0, 0);;
         }
     }
 
@@ -69,6 +71,8 @@ public class Vision {
             // set robot to turn to face target from published xPosition from raspberry pi;
             pid.setPID(kp.getDouble(0), ki.getDouble(0), kd.getDouble(0));
             dTrain.getDiffDrive().arcadeDrive(speed, pid.calculate(0, (xCenter.getDouble(0) - 0.5) * 2));
+        }else{
+            dTrain.getDiffDrive().tankDrive(0, 0);
         }
     }
 
