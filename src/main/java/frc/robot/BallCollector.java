@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Victor;
 
 public class BallCollector {
 
@@ -17,7 +18,7 @@ public class BallCollector {
         this.cManager = cManager;
     }
 
-    private Spark collector = new Spark(2);
+    private Victor collector = new Victor(3);
 
     //meathod to run collector motor from controller
     public void opRunCollector(){

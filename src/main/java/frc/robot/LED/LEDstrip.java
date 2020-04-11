@@ -52,9 +52,9 @@ public class LEDstrip {
     /**
      * maps the lookup table onto the leds with an optional offset
      */
-    public void mapLookupTable(ColorLookUpTable table, double offset){
+    public void mapLookupTable(ColorLookUpTable table){
         for (int i = 0; i < ledBuffer.getLength(); i++){
-            ledBuffer.setLED(i, table.getColor(((double)i / ledBuffer.getLength()) + offset));
+            ledBuffer.setLED(i, table.getColor((double)i / ledBuffer.getLength()));
         }        
         led.setData(ledBuffer);
     }

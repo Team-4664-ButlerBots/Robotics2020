@@ -7,12 +7,22 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Spark;
+
 /**
  * Add your docs here.
  */
 public class Shooter {
+    private Spark arm = new Spark(2);
 
+    private ControllerManager cManager;
 
+    public Shooter(ControllerManager cManager){
+        this.cManager = cManager;
+    }
 
+    public void OperatorControl(){
+        arm.set(cManager.getArmInput());
+    }
     
 }
