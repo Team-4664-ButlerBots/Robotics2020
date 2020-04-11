@@ -10,11 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Color;
-import frc.robot.LED.ColorLookUpTable;
-import frc.robot.LED.LEDstrip;
-import frc.robot.LED.ColorLookUpTable.AnimationType;
-import frc.robot.LED.ColorLookUpTable.InterpolationType;
+import frc.robot.LED.LedManager;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,10 +25,13 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-
-  ColorLookUpTable test = new ColorLookUpTable(3);
-
-  LEDstrip frontLED = new LEDstrip(9, 8);
+  
+  ControllerManager cManager = new ControllerManager();
+  LedManager ledManager = new LedManager(cManager);
+  DriveTrain dTrain = new DriveTrain(cManager);
+  Shooter shooter = new Shooter(cManager);
+  BallCollector collector = new BallCollector(cManager);
+  Vision visionSystem = new Vision(dTrain); 
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -42,8 +42,11 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    test.setGrid(Color.kFirstRed, Color.kBlueViolet);
-    test.SetInterpolationType(InterpolationType.linear);
+  }
+
+  @Override
+  public void disabledPeriodic() {
+    ledManager.DisabledUpdate();
   }
 
 
@@ -59,8 +62,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     ultra.publishUltra();
-    test.animate(AnimationType.addOffset, 0.005);
-    frontLED.mapLookupTable(test);
+    ledManager.PeriodicUpdate();
   }
 
   /**
@@ -100,11 +102,8 @@ public class Robot extends TimedRobot {
 
 
   
-  ControllerManager cManager = new ControllerManager();
-  DriveTrain dTrain = new DriveTrain(cManager);
-  Shooter shooter = new Shooter(cManager);
-  BallCollector collector = new BallCollector(cManager);
-  Vision visionSystem = new Vision(dTrain); 
+
+
   /**
    * This function is called periodically during operator control.
    */
@@ -118,6 +117,8 @@ public class Robot extends TimedRobot {
     }
     collector.opRunCollector();
     shooter.OperatorControl();
+
+    ledManager.TeleopUpdate();
   }
 
   /**

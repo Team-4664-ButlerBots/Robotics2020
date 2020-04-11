@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.util.Color;
 public class LEDstrip {
     private AddressableLEDBuffer ledBuffer;
     private AddressableLED led;
+    private double brightness = 1;
 
     public LEDstrip(int port, int LedCount) {
         // PWM port 9

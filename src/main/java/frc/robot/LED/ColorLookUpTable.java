@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.util.Color;
 public class ColorLookUpTable {
     private Color[] keys;
     private double offset = 0;
+    //brightness mutliplier. 
+    private double brightness = 0.5;
 
     public enum InterpolationType {
         linear, closest
@@ -19,7 +21,7 @@ public class ColorLookUpTable {
     private InterpolationType interType = InterpolationType.linear;
 
     public enum AnimationType {
-        addOffset, subOffest
+        addOffset, subOffest, pulse
     }
 
     public ColorLookUpTable(int keyAmt) {
@@ -32,6 +34,10 @@ public class ColorLookUpTable {
 
     public void SetInterpolationType(InterpolationType type){
         interType = type;
+    }
+
+    public void setBrightness(double brightness){
+        this.brightness = brightness; 
     }
 
     private Color Interpolate(Color clr1, Color clr2, double g) { // ((light I'm at)/last light)) x (Number of keys)
@@ -56,6 +62,7 @@ public class ColorLookUpTable {
     }
 
     public Color getColor(double input) {
+        input += 10000000; //this is to prevent input ever being negative while maintaining the animation. 
         input += offset;
         input = input - (int) input;
         double position = keys.length * input;
@@ -70,15 +77,19 @@ public class ColorLookUpTable {
         }
         double distance = position - (int) position;
         Color c = Interpolate(color1, color2, distance);
+        c = new Color(c.red * brightness, c.green * brightness, c.blue * brightness);
         return c;
     }
 
+    private double brightTrack = 0;
     public void animate(AnimationType type, double speed) {
         switch (type) {
         case addOffset:
             offset += speed;
             break;
-
+        case pulse:
+            brightness = (Math.sin(brightTrack += speed) + 1) / 2;
+            break;
         default:
             break;
         }
