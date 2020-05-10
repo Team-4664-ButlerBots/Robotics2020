@@ -14,6 +14,7 @@ public class ColorLookUpTable {
     private double offset = 0;
     //brightness mutliplier. 
     private double brightness = 0.5;
+    private double scale = 1;
 
     public enum InterpolationType {
         linear, closest
@@ -40,6 +41,10 @@ public class ColorLookUpTable {
         this.brightness = brightness; 
     }
 
+    public void setScale(double scale){
+        this.scale = scale;
+    }
+
     private Color Interpolate(Color clr1, Color clr2, double g) { // ((light I'm at)/last light)) x (Number of keys)
                                                                   // casted to int = lowest key
         switch (interType) {
@@ -62,9 +67,11 @@ public class ColorLookUpTable {
     }
 
     public Color getColor(double input) {
-        input += 10000000; //this is to prevent input ever being negative while maintaining the animation. 
-        input += offset;
-        input = input - (int) input;
+        input = input - (int) input; //Make sure input is just decimal. 
+        input *= scale; //scale the input decimal
+        input += 1000; //add to prevent negative numbers
+        input += offset -(int)offset; //add the offset to the decimal
+        input = input - (int) input; //make sure the input is only a decimal again to allow for looping
         double position = keys.length * input;
         Color color1 = keys[(int) position];
 
@@ -104,6 +111,25 @@ public class ColorLookUpTable {
                 keys[i] = col1;
             else
                 keys[i] = col2;
+        }
+    }
+
+    //sets a color look up table to a rainbow. The hue is from 0 to 1 degrees. hRange describes what percent
+    //is mapped to the table. 
+    public void setRainbow(double start, double hRange){
+        double h = start;
+        for (int i = 0; i < keys.length; i++) {
+            int rgb = java.awt.Color.HSBtoRGB((float)h, (float)1, (float)1);
+            keys[i] = new Color(((rgb>>16)&0xFF) / 255.0, ((rgb>>8)&0xFF)/255.0, (rgb&0xFF)/255.0);
+            h += hRange / keys.length;
+            //System.out.println("H = " + h);
+            //System.out.println("Color is: " + keys[i].red + " " + keys[i].green +" " + keys[i].blue  );
+        }
+    }
+
+    public void setSolidColor(Color color){
+        for (int i = 0; i < keys.length; i++) {
+            keys[i] = color;
         }
     }
 

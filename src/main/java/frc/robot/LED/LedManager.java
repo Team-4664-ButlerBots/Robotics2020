@@ -22,42 +22,77 @@ import frc.robot.LED.ColorLookUpTable.InterpolationType;
 public class LedManager {
     private NetworkTableInstance ntist = NetworkTableInstance.getDefault();
     private NetworkTable ledTable;
-    private NetworkTableEntry nBrightness, nSpeed;
+    private NetworkTableEntry nBrightness, nSpeed, nScale;
 
-    private ColorLookUpTable test = new ColorLookUpTable(4);
-    private LEDstrip frontLED = new LEDstrip(9, 8);
+    private ColorLookUpTable test = new ColorLookUpTable(8);
+    private ColorLookUpTable test2 = new ColorLookUpTable(8);
+    private LEDstrip UnderBodyLED = new LEDstrip(9, 60);
 
     ControllerManager cManager;
-    public LedManager(ControllerManager cManager){
+
+    public LedManager(ControllerManager cManager) {
         NetSetup();
         this.cManager = cManager;
-        test.SetInterpolationType(InterpolationType.closest);
+        test2.SetInterpolationType(InterpolationType.closest);
     }
 
-    public void NetSetup(){
+    public void NetSetup() {
         ledTable = ntist.getTable("led");
         // instantiate the values
         nBrightness = ledTable.getEntry("brightness");
         nSpeed = ledTable.getEntry("speed");
-        // attempt to grab existing values from network tables otherwise use default values
+        nScale = ledTable.getEntry("scale");
+        // attempt to grab existing values from network tables otherwise use default
+        // values. This populates them with data if
+        // they don't already have any which makes them visible and editable.
         nBrightness.setDouble(nBrightness.getDouble(1));
         nSpeed.setDouble(nSpeed.getDouble(1));
+        nScale.setDouble(nScale.getDouble(1));
     }
 
-    public void DisabledUpdate(){
+    public void DisabledUpdate() {
+        test.setScale(1);
+        // test.setSolidColor(new Color(1,1,1));
+        test.SetInterpolationType(InterpolationType.linear);
         test.setGrid(Color.kFirstRed, Color.kBlueViolet);
         test.animate(AnimationType.pulse, 0.05);
+        test.animate(AnimationType.addOffset, -0.001);
+        UnderBodyLED.mapLookupTable(test);
     }
 
-    public void TeleopUpdate(){
-        test.setBrightness(1);
-        test.setGrid(Color.kBlack, Color.kAliceBlue);
-        test.animate(AnimationType.addOffset, (cManager.getDriveInput()[0] + cManager.getDriveInput()[1]) * 0.025);
+    public void TeleopUpdate() {
+        test.setScale(0.35);
+        test2.setScale(0.35);
+        test.SetInterpolationType(InterpolationType.closest);
+        test2.SetInterpolationType(InterpolationType.closest);
+        test.setBrightness(Math.abs(cManager.getDriveInput()[1]) / 2 + 0.5);
+        test2.setBrightness(Math.abs(cManager.getDriveInput()[0]) / 2 + 0.5);
+        test.setGrid(Color.kBlack, Color.kBlue);
+        test2.setGrid(Color.kBlack, Color.kBlue);
+        test.animate(AnimationType.addOffset, cManager.getDriveInput()[1] * 0.015);
+        test2.animate(AnimationType.addOffset, -cManager.getDriveInput()[0] * 0.015);
+
+        UnderBodyLED.mapLookupTable(test, 0, 30);
+        UnderBodyLED.mapLookupTable(test2, 30, 60);
     }
 
-    public void PeriodicUpdate(){
-        frontLED.mapLookupTable(test);
+    public void PeriodicUpdate() {
+
     }
 
+    public void TestUpdate() {
+        // test.setRainbow(0,0.5);
+        test.setRainbow(0.5, 1);
+        ;
+        test.setBrightness(nBrightness.getDouble(1));
+        test.setScale(nScale.getDouble(1));
+        test.animate(AnimationType.addOffset, 0.002 * nSpeed.getDouble(1));
+        test2.setGrid(Color.kFirstRed, Color.kAliceBlue);
+        test2.setBrightness(nBrightness.getDouble(1));
+        test2.setScale(nScale.getDouble(1));
+        test2.animate(AnimationType.addOffset, 0.002 * nSpeed.getDouble(1));
+        UnderBodyLED.mapLookupTable(test, 30, 59);
+        UnderBodyLED.mapLookupTable(test2, 0, 29);
+    }
 
 }
