@@ -8,14 +8,15 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Victor;
 
 /**
  * Add your docs here.
  */
 public class Shooter {
     private Spark arm = new Spark(2);
-    private Spark LeftShoot = new Spark(3);
-    private Spark RightShoot = new Spark(4);
+    private Victor LeftShoot = new Victor(3);
+    private Victor RightShoot = new Victor(4);
     
     private ControllerManager cManager;
 
