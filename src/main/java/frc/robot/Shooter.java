@@ -14,7 +14,9 @@ import edu.wpi.first.wpilibj.Spark;
  */
 public class Shooter {
     private Spark arm = new Spark(2);
-
+    private Spark LeftShoot = new Spark(3);
+    private Spark RightShoot = new Spark(4);
+    
     private ControllerManager cManager;
 
     public Shooter(ControllerManager cManager){
@@ -23,6 +25,11 @@ public class Shooter {
 
     public void OperatorControl(){
         arm.set(cManager.getArmInput());
+        setSpeed(cManager.getShootSpeed());
+
     }
-    
+    private void setSpeed(double speed){
+        LeftShoot.set(speed);
+        RightShoot.set(speed);
+    }
 }

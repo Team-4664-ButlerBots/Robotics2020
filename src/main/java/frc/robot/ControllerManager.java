@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class ControllerManager {
 
-    private Joystick gamepad = new Joystick(0);
-    private Joystick joystick = new Joystick(1);
+    private Joystick gamepad = new Joystick(0);     
+    private Joystick joystick = new Joystick(1);    
     // public Joystick joystick = new Joystick(1);
 
     private boolean speedToggled = false;
@@ -52,10 +52,14 @@ public class ControllerManager {
     }
 
     public double getArmInput() {
-        return joystick.getRawAxis(1);
+        return joystick.getRawAxis(1);      
     }
 
     public boolean usingVision() {
         return gamepad.getRawButton(8);
+    }
+
+    public double getShootSpeed(){
+        return joystick.getRawAxis(2);
     }
 }
