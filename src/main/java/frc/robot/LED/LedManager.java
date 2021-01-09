@@ -69,8 +69,8 @@ public class LedManager {
         test2.setBrightness(Math.abs(cManager.getDriveInput()[0]) / 2 + 0.5);
         test.setGrid(Color.kBlack, Color.kBlue);
         test2.setGrid(Color.kBlack, Color.kBlue);
-        test.animate(AnimationType.addOffset, cManager.getDriveInput()[1] * 0.0175);
-        test2.animate(AnimationType.addOffset, -cManager.getDriveInput()[0] * 0.0175);
+        test.animate(AnimationType.addOffset, cManager.getDriveInput()[1] * 0.015);
+        test2.animate(AnimationType.addOffset, -cManager.getDriveInput()[0] * 0.015);
 
         UnderBodyLED.mapLookupTable(test, 0, 30);
         UnderBodyLED.mapLookupTable(test2, 30, 60);
